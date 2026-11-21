@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div style="height: 100vh;" class="bg-dark text-light d-flex justify-content-center align-items-center flex-column">
+        <h1 class="text-primary mb-5">Quote of the day</h1>
+        
+        <div class="w-50" id="result">
+            <!-- Quote will appear here -->
+        </div>
+
+        <!-- Added Button -->
+        <button onclick="getRandomQuote()" class="btn btn-primary mt-4 px-4 py-2 shadow">
+            New Quote
+        </button>
+    </div>
+</body>
+<script>
+    function getRandomQuote() {
+        const result = document.getElementById('result');
+        
+        // Optional: show a quick loading state while fetching
+        result.innerHTML = `<p class="text-center text-secondary">Loading quote...</p>`;
+
+        fetch('https://dummyjson.com/quotes', { method: "GET" })
+            .then(response => response.json())
+            .then(serverResponse => {
+                const allquotes = serverResponse.quotes;
+                const randomIndex = Math.floor(Math.random() * allquotes.length);
+                const randomquote = allquotes[randomIndex];
+                
+                result.innerHTML = `
+                    <div class="border rounded p-5 w-100 shadow-sm">
+                        <h4 class="text-center text-white">"${randomquote.quote}"</h4>
+                        <em class="float-end text-danger">- ${randomquote.author}</em>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error("Error fetching quote:", error);
+                result.innerHTML = `<p class="text-center text-danger">Failed to load quote. Please try again.</p>`;
+            });
+    }
+
+    // Load a quote immediately when the page opens
+    getRandomQuote();
+</script>
+</html>
