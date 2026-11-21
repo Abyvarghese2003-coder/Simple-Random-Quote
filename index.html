@@ -11,10 +11,10 @@
         <h1 class="text-primary mb-5">Quote of the day</h1>
         
         <div class="w-50" id="result">
-            <!-- Quote will appear here -->
+           
         </div>
 
-        <!-- Added Button -->
+      
         <button onclick="getRandomQuote()" class="btn btn-primary mt-4 px-4 py-2 shadow">
             New Quote
         </button>
@@ -24,7 +24,7 @@
     function getRandomQuote() {
         const result = document.getElementById('result');
         
-        // Optional: show a quick loading state while fetching
+      
         result.innerHTML = `<p class="text-center text-secondary">Loading quote...</p>`;
 
         fetch('https://dummyjson.com/quotes', { method: "GET" })
@@ -47,7 +47,7 @@
             });
     }
 
-    // Load a quote immediately when the page opens
+    
     getRandomQuote();
 </script>
 </html>
